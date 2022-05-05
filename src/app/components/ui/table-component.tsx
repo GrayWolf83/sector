@@ -1,5 +1,6 @@
 import React from 'react'
 import { Post } from '../../types/post'
+import { HomeSearch } from '../../types/home-search'
 
 interface ITitle {
 	title: string
@@ -7,25 +8,30 @@ interface ITitle {
 }
 
 interface ITableComponentProps {
-	titles: ITitle[]
-	onSort: (name: string, arrow: boolean | 'asc' | 'desc') => void
-	sort: { name: string; arrow: boolean | 'asc' | 'desc' }
+	onSort: ({ name, arrow }: HomeSearch) => void
+	sort: HomeSearch
 	items: Post[]
 }
 
 const TableComponent: React.FC<ITableComponentProps> = ({
-	titles,
 	onSort,
 	sort,
 	items,
 }) => {
+	const titles = [
+		{ title: 'ID', sortName: 'id' },
+		{ title: 'Заголовок', sortName: 'title' },
+		{ title: 'Описание', sortName: 'body' },
+	]
+
 	const handleSort = (item: ITitle) => {
-		onSort(
-			item.sortName,
-			sort.name === item.sortName && sort.arrow === 'asc'
-				? 'desc'
-				: 'asc',
-		)
+		onSort({
+			name: item.sortName,
+			arrow:
+				sort.name === item.sortName && sort.arrow === 'asc'
+					? 'desc'
+					: 'asc',
+		})
 	}
 
 	const getIcon = (item: ITitle) => {
@@ -53,7 +59,9 @@ const TableComponent: React.FC<ITableComponentProps> = ({
 			<tbody>
 				{items.map((item) => (
 					<tr key={item.id}>
-						<th scope='row'>{item.id}</th>
+						<th scope='row' className='text-center'>
+							{item.id}
+						</th>
 						<td>{item.title}</td>
 						<td>{item.body}</td>
 					</tr>
