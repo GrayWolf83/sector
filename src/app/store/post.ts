@@ -45,8 +45,8 @@ export const loadPostsList = () => async (dispatch: AppDispatch) => {
 	}
 }
 
-export const getPostsPagesCount = () => (state: RootState) => {
-	return Math.ceil(state.posts.entities.length / 10)
+export const getPostsList = () => (state: RootState) => {
+	return state.posts.entities
 }
 
 export const getPostsDataLoadedStatus = () => (state: RootState) => {
@@ -54,11 +54,6 @@ export const getPostsDataLoadedStatus = () => (state: RootState) => {
 }
 export const getPostsLoadingStatus = () => (state: RootState) => {
 	return state.posts.isLoading
-}
-
-export const getPaginatePosts = (index: number) => (state: RootState) => {
-	const start = index * 10
-	return state.posts.entities.slice(start, start + 10)
 }
 
 export default postSlice.reducer
