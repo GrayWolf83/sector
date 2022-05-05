@@ -10,7 +10,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<Main />}>
 					<Route index element={<Home />} />
-					<Route path='/:pageIndex' element={<Home />} />
+					<Route path='/:pageNum' element={<Home />} />
 				</Route>
 			</Routes>
 		</AppLoader>
