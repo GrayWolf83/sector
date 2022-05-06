@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 interface IPaginationProps {
 	pageIndex: number
@@ -13,6 +14,13 @@ const Pagination: React.FC<IPaginationProps> = ({
 	setIndex,
 }) => {
 	const pages = _.range(1, pagesCount + 1)
+	const [, setSearchParams] = useSearchParams()
+
+	useEffect(() => {
+		pageIndex <= 0
+			? setSearchParams({})
+			: setSearchParams({ page: (pageIndex + 1).toString() })
+	}, [pageIndex, setSearchParams])
 
 	const handleClick = (index: number) => {
 		if (index < 0 || index === pagesCount) {
@@ -20,6 +28,8 @@ const Pagination: React.FC<IPaginationProps> = ({
 		}
 		setIndex(index)
 	}
+
+	if (pagesCount === 0) return null
 
 	return (
 		<div className='pagination'>

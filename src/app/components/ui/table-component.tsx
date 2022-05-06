@@ -57,15 +57,23 @@ const TableComponent: React.FC<ITableComponentProps> = ({
 				</tr>
 			</thead>
 			<tbody>
-				{items.map((item) => (
-					<tr key={item.id}>
-						<th scope='row' className='text-center'>
-							{item.id}
-						</th>
-						<td>{item.title}</td>
-						<td>{item.body}</td>
+				{items.length ? (
+					items.map((item) => (
+						<tr key={item.id}>
+							<th scope='row' className='text-center'>
+								{item.id}
+							</th>
+							<td>{item.title}</td>
+							<td>{item.body}</td>
+						</tr>
+					))
+				) : (
+					<tr>
+						<td className='text-center' colSpan={3}>
+							Нет записей для отображения.
+						</td>
 					</tr>
-				))}
+				)}
 			</tbody>
 		</table>
 	)
